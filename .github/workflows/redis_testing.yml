@@ -34,4 +34,4 @@ jobs:
         redis-version: latest # optional, default is latest
     - name: Test with pytest
       run: |
-        pytest
+        pytest -s

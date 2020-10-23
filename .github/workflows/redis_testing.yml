@@ -14,6 +14,10 @@ jobs:
 
     runs-on: ubuntu-latest
 
+
+    steps:
+
+
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python 3.8
@@ -25,14 +29,17 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Redis Server in GitHub Actions
-      # You may pin to the exact commit or the version.
-      # uses: supercharge/redis-github-action@8dd3c86cd02fabe1bc459d55ba892a9ce91e23c6
-      uses: sam974/redis-github-action@b601589739e0dec43bc9bdb61439a531d274c575
-      # uses: sam974/redis-github-action@1.1.0
+    - uses: docker-practice/actions-setup-docker@master
       with:
-        # Redis version to use
-        redis-version: latest # optional, default is latest
+        docker_channel: nightly
+        # this value please see https://github.com/AkihiroSuda/moby-snapshot/releases
+        docker_nightly_version: snapshot-20201008
+    - run: |
+        set -x
+
+        docker version
+
+        docker run --rm hello-world
     - name: Test with pytest
       run: |
         pytest -s

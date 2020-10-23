@@ -33,9 +33,11 @@ jobs:
         set -x
 
         docker version
+        echo "WORKSPACE=${Env:GITHUB_WORKSPACE}"
 
         # docker run --rm hello-world
-        docker run -v ${Env:GITHUB_WORKSPACE}/src/resources/redis.conf:/usr/local/etc/redis/redis.conf -v ${Env:GITHUB_WORKSPACE}/src/resources/tc03-07.db:/data/dump.rdb --network="host"  -p 6379:6379 --name myredis redis redis-server /usr/local/etc/redis/redis.conf
+        # docker run -v ${Env:GITHUB_WORKSPACE}/src/resources/redis.conf:/usr/local/etc/redis/redis.conf -v ${Env:GITHUB_WORKSPACE}/src/resources/tc03-07.db:/data/dump.rdb --network="host"  -p 6379:6379 --name myredis redis redis-server /usr/local/etc/redis/redis.conf
+        docker run -v /home/runner/work/redis-sandbox/redis-sandbox/src/resources/redis.conf:/usr/local/etc/redis/redis.conf -v /home/runner/work/redis-sandbox/redis-sandbox/src/resources/tc03-07.db:/data/dump.rdb --network="host"  -p 6379:6379 --name myredis redis redis-server /usr/local/etc/redis/redis.conf
     - name: Test with pytest
       run: |
         pytest -s

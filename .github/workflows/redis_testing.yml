@@ -33,6 +33,7 @@ jobs:
         set -x
 
         docker version
+        env
         echo "WORKSPACE=${Env:GITHUB_WORKSPACE}"
 
         # docker run --rm hello-world

@@ -34,7 +34,8 @@ jobs:
 
         docker version
 
-        docker run --rm hello-world
+        # docker run --rm hello-world
+        docker run -v /github/workspace/src/resources/redis.conf:/usr/local/etc/redis/redis.conf -v /github/workspace/src/resources/tc03-07.db:/data/dump.rdb --network="host"  -p 6379:6379 --name myredis redis redis-server /usr/local/etc/redis/redis.conf
     - name: Test with pytest
       run: |
         pytest -s

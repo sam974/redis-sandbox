@@ -40,6 +40,8 @@ jobs:
         # docker run --rm hello-world
         # docker run -v ${Env:GITHUB_WORKSPACE}/src/resources/redis.conf:/usr/local/etc/redis/redis.conf -v ${Env:GITHUB_WORKSPACE}/src/resources/tc03-07.db:/data/dump.rdb --network="host"  -p 6379:6379 --name myredis redis redis-server /usr/local/etc/redis/redis.conf
         docker run -v ${Env:PWD}/src/resources/redis.conf:/usr/local/etc/redis/redis.conf -v ${Env:PWD}/src/resources/tc03-07.db:/data/dump.rdb --network="host"  -p 6379:6379 --name myredis redis redis-server /usr/local/etc/redis/redis.conf
+        echo "RUN redis-cli to get dir"
+        docker run --network="host" redis redis-cli config get dir
     - name: Test with pytest
       run: |
         pytest -s

@@ -1,4 +1,6 @@
 import redis
+import pickle
+
 
 def test_record():
     print(f"Mi jouer ek redis ")
@@ -6,3 +8,6 @@ def test_record():
     recorder_instance.rpush("toto", "i marche sa")
     response_debug = recorder_instance.lpop("toto")
     print(f"DEBUG RESP={response_debug}")
+    packed_object = recorder_instance.lpop("DUT7")
+    response = pickle.loads(packed_object)
+    print(f"Replayed response: {response}")

@@ -50,6 +50,7 @@ jobs:
         # docker run --network="host" redis redis-cli lrange DUT7 0 -1
     - name: Test with pytest
       run: |
-        $Env:PYTHONPATH="${Env:GITHUB_WORKSPACE}/src"
+        PYTHONPATH="${GITHUB_WORKSPACE}/src"
+        echo "PTYHONPATH=${GITHUB_WORKSPACE}"
         pip install wheel pytest
-        pytest -s 
+        pytest -s ${GITHUB_WORKSPACE}/src/test_redis.py

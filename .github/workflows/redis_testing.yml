@@ -47,7 +47,7 @@ jobs:
         docker run --detach --network="host" -v ${GITHUB_WORKSPACE}/src/resources/tc03-07.db:/data/dump.rdb -p 6379:6379 --name myredis redis redis-server
         echo "RUN redis-cli to get dir"
         docker run --network="host" redis redis-cli config get dir
-        docker run --network="host" redis redis-cli lrange DUT7 0 -1
+        # docker run --network="host" redis redis-cli lrange DUT7 0 -1
     - name: Test with pytest
       run: |
         pytest -s

@@ -53,7 +53,7 @@ jobs:
         PYTHONPATH="${GITHUB_WORKSPACE}/src"
         echo "PTYHONPATH=${GITHUB_WORKSPACE}"
         pip install wheel pytest pytest-cov
-        pytest -s --cov=redis-sandbox  --cov-report=xml ${GITHUB_WORKSPACE}/src/test_redis.py
+        pytest -s --cov=.  --cov-report=xml ${GITHUB_WORKSPACE}/src/test_redis.py
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
       with:

@@ -52,5 +52,14 @@ jobs:
       run: |
         PYTHONPATH="${GITHUB_WORKSPACE}/src"
         echo "PTYHONPATH=${GITHUB_WORKSPACE}"
-        pip install wheel pytest
-        pytest -s ${GITHUB_WORKSPACE}/src/test_redis.py
+        pip install wheel pytest pytest-cov
+        pytest -s --cov=redis-sandbox  --cov-report=xml ${GITHUB_WORKSPACE}/src/test_redis.py
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        file: ./coverage.xml
+        env_vars: OS,PYTHON
+        name: codecov-umbrella
+        fail_ci_if_error: true
+        verbose: true

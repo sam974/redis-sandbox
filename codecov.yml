@@ -3,11 +3,8 @@ coverage:
     slack:
       default:
         url: "https://hooks.slack.com/services/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"
-        threshold: 1%
         only_pulls: false
         branches: 
           - "main"
-        flags: 
-          - "unit"
         paths: 
           - "src"

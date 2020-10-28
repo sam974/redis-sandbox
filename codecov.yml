@@ -1,0 +1,13 @@
+coverage:
+  notify:
+    slack:
+      default:
+        url: "https://hooks.slack.com/services/abc/123"
+        threshold: 1%
+        only_pulls: false
+        branches: 
+          - "master"
+        flags: 
+          - "unit"
+        paths: 
+          - "src"

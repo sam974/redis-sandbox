@@ -1,8 +1,9 @@
 import redis
 import pickle
 
+
 def play_with_redis():
-    print(f"Mi jouer ek redis ")
+    print(f"[play_with_redis] Mi jouer ek redis ")
     recorder_instance = redis.Redis(host="127.0.0.1", port=6379, db=0)
     recorder_instance.rpush("toto", "i marche sa")
     response_debug = recorder_instance.lpop("toto")

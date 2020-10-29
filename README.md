@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/sam974/redis-sandbox/branch/main/graph/badge.svg?token=0571QHK5G4)](undefined)
+
 # redis-sandbox
 
 Launch redis in docker:

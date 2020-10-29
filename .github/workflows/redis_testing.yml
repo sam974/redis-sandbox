@@ -24,30 +24,16 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - uses: docker-practice/actions-setup-docker@master
-      with:
-        docker_channel: nightly
-        # this value please see https://github.com/AkihiroSuda/moby-snapshot/releases
-        docker_nightly_version: snapshot-20201008
-    - run: |
-        set -x
-
-        docker version
-        env
-        ls *
-        echo "WORKSPACE=${GITHUB_WORKSPACE}"
-        ls ${GITHUB_WORKSPACE}/src/resources
-
-        # docker run --rm hello-world
-        # docker run -v ${Env:GITHUB_WORKSPACE}/src/resources/redis.conf:/usr/local/etc/redis/redis.conf -v ${Env:GITHUB_WORKSPACE}/src/resources/tc03-07.db:/data/dump.rdb --network="host"  -p 6379:6379 --name myredis redis redis-server /usr/local/etc/redis/redis.conf
-        # docker run -v ${Env:PWD}/src/resources/redis.conf:/usr/local/etc/redis/redis.conf -v ${Env:PWD}/src/resources/tc03-07.db:/data/dump.rdb --network="host"  -p 6379:6379 --name myredis redis redis-server /usr/local/etc/redis/redis.conf
-        
-        # cp ${GITHUB_WORKSPACE}/src/resources/tc03-07.db /data/dump.rdb
-        # ls -al /data
-        docker run --detach --network="host" -v ${GITHUB_WORKSPACE}/src/resources/tc03-07.db:/data/dump.rdb -p 6379:6379 --name myredis redis redis-server
-        echo "NO RUN redis-cli to get dir"
-        # docker run --network="host" redis redis-cli config get dir
-        # docker run --network="host" redis redis-cli lrange DUT7 0 -1
+    - services:
+      redis:
+        image: redis
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        volumes:
+          - ${GITHUB_WORKSPACE}/src/resources/tc03-07.db:/data/dump.rdb
     - name: Test with pytest
       run: |
         PYTHONPATH="${GITHUB_WORKSPACE}/src"

@@ -40,10 +40,10 @@ jobs:
       run: |
         set -x
         env
-        ls *
         echo "WORKSPACE=${GITHUB_WORKSPACE}"
         ls ${GITHUB_WORKSPACE}/src/resources
-
+        mkdir ~/mycampaigns
+        cp ${GITHUB_WORKSPACE}/src/resources/tc03-07.db:/data/dump.rdb ~/mycampaigns/dump.rdb
     - name: Test with pytest
       run: |
         PYTHONPATH="${GITHUB_WORKSPACE}/src"

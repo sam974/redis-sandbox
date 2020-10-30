@@ -45,7 +45,7 @@ jobs:
     #       --health-timeout 5s
     #       --health-retries 5
     #     volumes:
-    #       - ${GITHUB_WORKSPACE}/src/resources/tc03-07.db:/data/dump.rdb
+    #       - tc03-07.db:/data/dump.rdb
     steps:
     - name: Download math result for job 1
       uses: actions/download-artifact@v2
@@ -57,18 +57,29 @@ jobs:
         echo "WORKSPACE=${GITHUB_WORKSPACE}"
         ls -al ${GITHUB_WORKSPACE}/
         mkdir ~/mycampaigns
-    - name: Test with pytest
-      run: |
-        PYTHONPATH="${GITHUB_WORKSPACE}/src"
-        echo "PTYHONPATH=${GITHUB_WORKSPACE}"
-        pip install wheel pytest pytest-cov
-        pytest -s --cov=.  --cov-report=xml ${GITHUB_WORKSPACE}/src/test_redis.py
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v1
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-        file: ./coverage.xml
-        env_vars: OS,PYTHON
-        name: codecov-umbrella
-        fail_ci_if_error: true
-        verbose: true
+    # - name: Test with pytest
+    #   run: |
+    #     PYTHONPATH="${GITHUB_WORKSPACE}/src"
+    #     echo "PTYHONPATH=${GITHUB_WORKSPACE}"
+    #     pip install wheel pytest pytest-cov
+    #     pytest -s --cov=.  --cov-report=xml ${GITHUB_WORKSPACE}/src/test_redis.py
+    # - name: Upload coverage to Codecov
+    #   uses: codecov/codecov-action@v1
+    #   with:
+    #     token: ${{ secrets.CODECOV_TOKEN }}
+    #     file: ./coverage.xml
+    #     env_vars: OS,PYTHON
+    #     name: codecov-umbrella
+    #     fail_ci_if_error: true
+    #     verbose: true
+
+    services:
+      redis:
+        image: redis
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        volumes:
+          - tc03-07.db:/data/dump.rdb    

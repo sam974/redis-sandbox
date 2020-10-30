@@ -23,6 +23,11 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Upload campaigns 
+      uses: actions/upload-artifact@v2
+      with:
+        name: dump.rdb
+        path: ${GITHUB_WORKSPACE}/src/resources/tc03-07.db       
   testsanbox:
     runs-on: ubuntu-latest
     needs: build
@@ -37,13 +42,16 @@ jobs:
     #     volumes:
     #       - ${GITHUB_WORKSPACE}/src/resources/tc03-07.db:/data/dump.rdb
     steps:
+    - name: Download math result for job 1
+      uses: actions/download-artifact@v2
+      with:
+        name: dump.rdb    
     - name: Print env
       run: |
         set -x
         echo "WORKSPACE=${GITHUB_WORKSPACE}"
-        ls ${GITHUB_WORKSPACE}/
+        ls -al ${GITHUB_WORKSPACE}/
         mkdir ~/mycampaigns
-        cp ${GITHUB_WORKSPACE}/src/resources/tc03-07.db:/data/dump.rdb ~/mycampaigns/dump.rdb
     - name: Test with pytest
       run: |
         PYTHONPATH="${GITHUB_WORKSPACE}/src"

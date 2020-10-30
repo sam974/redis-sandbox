@@ -27,7 +27,7 @@ jobs:
       run: |
         set -x
         echo "WORKSPACE=${GITHUB_WORKSPACE}"
-        ls -al ${GITHUB_WORKSPACE}/*
+        ls -al ${GITHUB_WORKSPACE}/src/resources/*
     - name: Upload campaigns 
       uses: actions/upload-artifact@v2
       with:

@@ -41,7 +41,7 @@ jobs:
       run: |
         set -x
         echo "WORKSPACE=${GITHUB_WORKSPACE}"
-        ls ${GITHUB_WORKSPACE}/src/resources
+        ls ${GITHUB_WORKSPACE}/
         mkdir ~/mycampaigns
         cp ${GITHUB_WORKSPACE}/src/resources/tc03-07.db:/data/dump.rdb ~/mycampaigns/dump.rdb
     - name: Test with pytest

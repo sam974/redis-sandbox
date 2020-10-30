@@ -32,7 +32,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: campaigns
-        path: ${GITHUB_WORKSPACE}/src/resources/
+        path: src/resources/
   testsanbox:
     runs-on: ubuntu-latest
     needs: build

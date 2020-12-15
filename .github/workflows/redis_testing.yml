@@ -84,4 +84,4 @@ jobs:
           --health-timeout 15s
           --health-retries 10
         volumes:
-          - $GITHUB_WORKSPACE/src/resources:/data/
+          - ${{GITHUB_WORKSPACE}}/src/resources:/data/

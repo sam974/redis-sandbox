@@ -58,8 +58,12 @@ jobs:
         set -x
         echo "WORKSPACE=${GITHUB_WORKSPACE}"
         ls -al ${GITHUB_WORKSPACE}/
-        mkdir /data
+        echo "ls data BEFORE"
+        ls /data
         cp ${GITHUB_WORKSPACE}/src/resources/* /data/
+        echo "ls data AFTER"
+        ls /data
+
         mkdir ~/mycampaigns
     # - name: Test with pytest
     #   run: |

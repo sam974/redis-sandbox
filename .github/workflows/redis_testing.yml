@@ -83,5 +83,5 @@ jobs:
           --health-interval 20s
           --health-timeout 15s
           --health-retries 10
-        # volumes:
-        #   - tc03-07.db:/data/dump.rdb    
+        volumes:
+          - $GITHUB_WORKSPACE/src/resources:/data/

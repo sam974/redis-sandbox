@@ -75,13 +75,13 @@ jobs:
     #     fail_ci_if_error: true
     #     verbose: true
 
-    services:
-      redis:
-        image: redis
-        options: >-
-          --health-cmd "redis-cli ping"
-          --health-interval 20s
-          --health-timeout 15s
-          --health-retries 10
-        volumes:
-          - ${{GITHUB_WORKSPACE}}/src/resources:/data/
+    # services:
+    #   redis:
+    #     image: redis
+    #     options: >-
+    #       --health-cmd "redis-cli ping"
+    #       --health-interval 20s
+    #       --health-timeout 15s
+    #       --health-retries 10
+    #     volumes:
+    #       - ${GITHUB_WORKSPACE}/src/resources:/data
